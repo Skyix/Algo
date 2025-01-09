@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -10,12 +11,20 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        seconds++;
+        seconds--;
 
-        if(seconds >= 60)
+        if(seconds == 0)
         {
-            seconds = 0;
-            minutes++;
+            if(minutes > 0)
+            {
+                minutes--;
+                seconds += 59;
+            }
+            else
+            {
+                int SceneIndex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(SceneIndex);
+            }
         }
     }
 }
